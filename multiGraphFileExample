@@ -18,3 +18,5 @@ Valid options include:
 "label 2"
 "label 3"
 etc.
+
+NOTE: The validity of inputs will be pulled from the charts.json format file
