@@ -1,6 +1,8 @@
 import re
 import config
 import graph
+from matplotlib.backends.backend_pdf import PdfPages
+
 
 validPdfName = r'^\w+\.pdf$'
 validDate = r'^\d{4}\-(0[1-9]|1[0-2])\-([0-2]\d|3[0-1])$'
@@ -84,3 +86,10 @@ class multiGraph():
             if(not re.match(validDate, end)):
                 message = "Line {0:d}: {} is not a valid format for end date"
                 raise IOError(message.format(lineNum,end))
+
+            self.graphs.append(graph.Graph(cards, test, subTest, type, labels, start, end))
+
+    def createBook(self):
+        with PdfPages(self.pdfName) as pdf:
+            for graph in self.graphs:
+                graph.plotGraph(multiPdf=pdf)
