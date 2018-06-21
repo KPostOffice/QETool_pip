@@ -57,7 +57,6 @@ def plotMany(cards, test, subTest, type, labels, start, end, fileName="test.pdf"
     top = ymax+ymax-ymin
     ax.grid(color="#6A0000", lw = 2.5)
     ax.set_title(test + ": " + subTest + " " + type)
-    print(10**int(np.log10(ymax-ymin)))
     ax.set_yticks(np.arange(bottom, top, 10**int(np.log10(ymax-ymin))))
     ax.ticklabel_format(axis = 'y', style='plain', useOffset=False)
     ax.legend(bbox_to_anchor=(1.05, 1), loc='best', borderaxespad=0.)

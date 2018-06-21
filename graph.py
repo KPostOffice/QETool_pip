@@ -28,16 +28,13 @@ class Graph():
         top = ymax+ymax-ymin
         ax.grid(color="#6A0000", lw = 2.5)
         ax.set_title(self.test + ": " + self.subTest + " " + self.type)
-        print(10**int(np.log10(ymax-ymin)))
         ax.set_yticks(np.arange(bottom, top, 10**int(np.log10(ymax-ymin))))
         ax.ticklabel_format(axis = 'y', useOffset=False)
         ax.legend(bbox_to_anchor=(1.05, 1), loc='best', borderaxespad=0.)
         ax.set_ylim(bottom=bottom, top=top)
         if(multiPdf != None):
-            print("here")
             multiPdf.savefig()
         else:
-            print("here 2")
             plt.savefig(fileName)
 
         plt.close('all')
