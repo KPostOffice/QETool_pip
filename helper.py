@@ -11,12 +11,6 @@ def stringDateToEpoch(string):
     dateArr = [int(x) for x in dateArr]
     return (datetime.datetime(dateArr[0], dateArr[1], dateArr[2])).timestamp()
 
-def dateTimeToMatplotEpoch(date):
-    return "# TODO: "
-
-def epochToDateTime(epochTime):
-    return "# TODO: "
-
 def getData(card, test, subTest, type, epochStart, epochEnd):
     query = {
         "datetime": {

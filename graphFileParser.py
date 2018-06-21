@@ -1,14 +1,14 @@
-import re
-import config
+from config import structure
 import graph
 from matplotlib.backends.backend_pdf import PdfPages
-
+import regexHelp
+import re
 
 validPdfName = r'^\w+\.pdf$'
 validDate = r'^\d{4}\-(0[1-9]|1[0-2])\-([0-2]\d|3[0-1])$'
 
-class multiGraph():
-    def __init__(fileName):
+class MultiGraph():
+    def __init__(self, fileName):
         self.fileName = fileName
         self.pdfName = ""
         self.graphs = []
@@ -19,7 +19,7 @@ class multiGraph():
         graphs = []   # new empty non-instance variables allow for nonassignment if input is invalid
         options = []
         fileOb = open(self.fileName, "r")
-        pdfName = file_ob.readline().rstrip()
+        pdfName = fileOb.readline().rstrip()
         # TODO: Pdf name with regular expression or raise an error
         if(not re.match(validPdfName, pdfName)):
             message = "Line {0:d}: {} is not a valid name for a pdf please have it of form \w+.pdf"
@@ -27,67 +27,70 @@ class multiGraph():
 
         lineNum = 2
 
-        for line in file_ob:
+        for line in fileOb:
             line = line.rstrip()
             options = line.split(':')
 
             if(len(options)<7):
-                message = "Line {0:d}: Not enough arguments provided, needed 7 or 8 seperated by ':' but got {0:d}"
+                message = "Line {}: Not enough arguments provided, needed 7 or 8 seperated by ':' but got {}"
                 raise IOError(message.format(lineNum, len(options)))
-            else if(len(options)>8):
-                message = "Line {0:d}: Too many arguments provided, needed 7 or 8 seperated by ':' but got {0:d}"
+            elif(len(options)>8):
+                message = "Line {}: Too many arguments provided, needed 7 or 8 seperated by ':' but got {}"
                 raise IOError(message.format(lineNum, len(options)))
 
             cards = set(options[0].split(','))
-            cardReg = config.cardsRegex()
+            cardReg = regexHelp.cardsRegex()
 
             for card in cards:
-                if(not re.match(cardReg,card))
-                    message = "Line {0:d}: {} is not a valid card name. Valid names are: {}"
-                    raise IOError(message.format(lineNum, card, ', '.join(config.structure[cards])))
+                if(not re.match(cardReg,card)):
+                    message = "Line {}: {} is not a valid card name. Valid names are: {}"
+                    raise IOError(message.format(lineNum, card, ', '.join(structure[cards])))
 
             test = options[1]
-            testReg = config.testsRegex()
+            testReg = regexHelp.testsRegex()
 
             if(not re.match(testReg, test)):
-                message = "Line {0:d}: {} is not a valid test name"
+                message = "Line {}: {} is not a valid test name"
                 raise IOError(message.format(lineNum))
 
             subTest = options[2]
-            subTestReg = config.subTestsRegex(test)
+            subTestReg = regexHelp.subTestsRegex(test)
 
             if(not re.match(subTestReg, subTest)):
-                message = "Line {0:d}: {} is not a valid subTest choice with current selection: test={}"
+                message = "Line {}: {} is not a valid subTest choice with current selection: test={}"
                 raise IOError(message.format(lineNum, subTest, test))
 
             type = options[3]
-            typeReg = config.typeRegex(test, subTest)
+            typeReg = regexHelp.typeRegex(test, subTest)
 
             if(not re.match(typeReg, type)):
-                message = "Line {0:d}: {} is not a valid type option with current selection: test={}, subTest={}"
+                message = "Line {}: {} is not a valid type option with current selection: test={}, subTest={}"
                 raise IOError(message.format(lineNum,type, test, subTest))
 
             labels = set(options[4].split(','))
-            labelReg = config.labelsRegex(test,subTest,type)
+
+            labelReg = regexHelp.labelsRegex(test,subTest,type)
 
             for label in labels:
                 if(not re.match(labelReg,label)):
-                    message = "Line {0:d}: {} is not a valid label option with current selection: test={}, subTest={}, type={}"
+                    message = "Line {}: {} is not a valid label option with current selection: test={}, subTest={}, type={}"
                     raise IOError(message.format(lineNum,label,test,subTest,type))
 
             start = options[5]
 
             if(not re.match(validDate, start)):
-                message = "Line {0:d}: {} is not a valid format for start date"
+                message = "Line {}: {} is not a valid format for start date"
                 raise IOError(message.format(lineNum,start))
 
             end = options[6]
 
             if(not re.match(validDate, end)):
-                message = "Line {0:d}: {} is not a valid format for end date"
+                message = "Line {}: {} is not a valid format for end date"
                 raise IOError(message.format(lineNum,end))
 
-            self.graphs.append(graph.Graph(cards, test, subTest, type, labels, start, end))
+            graphs.append(graph.Graph(cards, test, subTest, type, labels, start, end))
+        self.graphs = graphs
+        self.pdfName = pdfName
 
     def createBook(self):
         with PdfPages(self.pdfName) as pdf:

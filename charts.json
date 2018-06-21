@@ -58,7 +58,7 @@
         }
       },
       "Endurance Testing PVP Latency": {
-        "latency": {
+        "latency avg": {
           "64 Bytes Latency": "!B4:B4",
           "576 Bytes Latency": "!I4:I4",
           "1218 Bytes Latency": "!B25:B25",
