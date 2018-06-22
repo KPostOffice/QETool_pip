@@ -1,5 +1,5 @@
 pdfFileName.pdf
-card,card,card:test:subTest:type:label,label,label:start:end[:update]  NOTE: if update field is present at all it will update the range. If no update is needed do not supply this field. May change with future updates
+card,card,card:test:subtest:type:label,label,label:start:end[:update]  NOTE: if update field is present at all it will update the range. If no update is needed do not supply this field. May change with future updates
 ...
 ex:
 comparison.pdf
@@ -8,15 +8,15 @@ enic,ixgbe:Endurance:Endurance Testing PVP Latency:latency avg:64 Bytes Latency,
 
 generalformat
 \w*.pdf *\n
-(enic|ixgbe|...)(,(enic|ixgbe|...))*:(Gating|Endurance|...):
+(enic|ixgbe|...)(,(enic|ixgbe|...))*:(Gating|Endurance|...):(validSubtest|validSubtest2):(validType|validType2):(validLabel1|validLable2)(,(validLabel1|validLable2))*:(validDate):validDate
 
 parse on ':' and generate regex for next input based on valid that way user can easily be warned which part of request is invalid
 Warning can then be of form
-"such and such" for input "label" is invalid with the options: test="Some Test", subTest="valid subTest", type="valid type".
+"such and such" for input "label" is invalid with the options: test="Some Test", subtest="valid subtest", type="valid type".
 Valid options include:
 "label 1"
 "label 2"
 "label 3"
 etc.
 
-NOTE: The validity of inputs will be pulled from the charts.json format file
+NOTE: The validity of inputs will be pulled from the charts.json format file on server using GET request

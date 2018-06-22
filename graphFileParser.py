@@ -12,7 +12,7 @@ class MultiGraph():
         self.fileName = fileName
         self.pdfName = ""
         self.graphs = []
-        self.appRequest = QEdataRequest()
+        self.appReq = QEdataRequest()
 
     def construct(self):
         lineNum = 1
@@ -40,7 +40,7 @@ class MultiGraph():
                 raise IOError(message.format(lineNum, len(options)))
 
             cards = set(options[0].split(','))
-            cardReg = helper.regFromList(self.appRequest.validCards())
+            cardReg = helper.regFromList(self.appReq.validCards())
 
             for card in cards:
                 if(not re.match(cardReg,card)):
@@ -48,21 +48,21 @@ class MultiGraph():
                     raise IOError(message.format(lineNum, card, ', '.join(structure[cards])))
 
             test = options[1]
-            testReg = helper.regFromList(self.appRequest.validTests())
+            testReg = helper.regFromList(self.appReq.validTests())
 
             if(not re.match(testReg, test)):
                 message = "Line {}: {} is not a valid test name"
                 raise IOError(message.format(lineNum))
 
             subtest = options[2]
-            subtestReg = helper.regFromList(appRequest.validSubtests(test))
+            subtestReg = helper.regFromList(self.appReq.validSubtests(test))
 
             if(not re.match(subtestReg, subtest)):
                 message = "Line {}: {} is not a valid subtest choice with current selection: test={}"
                 raise IOError(message.format(lineNum, subtest, test))
 
             type = options[3]
-            typeReg = helper.regFromList(appRequest.validType(test, subtest))
+            typeReg = helper.regFromList(self.appReq.validTypes(test, subtest))
 
             if(not re.match(typeReg, type)):
                 message = "Line {}: {} is not a valid type option with current selection: test={}, subtest={}"
@@ -70,8 +70,7 @@ class MultiGraph():
 
             labels = set(options[4].split(','))
 
-            labelReg = help.regFromList(appRequest.validLabels(test,subtest,type))
-
+            labelReg = helper.regFromList(self.appReq.validLabels(test,subtest,type))
             for label in labels:
                 if(not re.match(labelReg,label)):
                     message = "Line {}: {} is not a valid label option with current selection: test={}, subtest={}, type={}"
