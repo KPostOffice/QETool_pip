@@ -1,17 +1,18 @@
-from config import structure
 import graph
 from matplotlib.backends.backend_pdf import PdfPages
-import regexHelp
 import re
+from apiRequest import QEdataRequest
+import helper
 
 validPdfName = r'^\w+\.pdf$'
-validDate = r'^\d{4}\-(0[1-9]|1[0-2])\-([0-2]\d|3[0-1])$'
+validDate = r'^(19\d{2}|20\d{2})\-(0[1-9]|1[0-2])\-([0-2]\d|3[0-1])$'
 
 class MultiGraph():
     def __init__(self, fileName):
         self.fileName = fileName
         self.pdfName = ""
         self.graphs = []
+        self.appRequest = QEdataRequest()
 
     def construct(self):
         lineNum = 1
@@ -39,7 +40,7 @@ class MultiGraph():
                 raise IOError(message.format(lineNum, len(options)))
 
             cards = set(options[0].split(','))
-            cardReg = regexHelp.cardsRegex()
+            cardReg = helper.regFromList(self.appRequest.validCards())
 
             for card in cards:
                 if(not re.match(cardReg,card)):
@@ -47,34 +48,34 @@ class MultiGraph():
                     raise IOError(message.format(lineNum, card, ', '.join(structure[cards])))
 
             test = options[1]
-            testReg = regexHelp.testsRegex()
+            testReg = helper.regFromList(self.appRequest.validTests())
 
             if(not re.match(testReg, test)):
                 message = "Line {}: {} is not a valid test name"
                 raise IOError(message.format(lineNum))
 
-            subTest = options[2]
-            subTestReg = regexHelp.subTestsRegex(test)
+            subtest = options[2]
+            subtestReg = helper.regFromList(appRequest.validSubtests(test))
 
-            if(not re.match(subTestReg, subTest)):
-                message = "Line {}: {} is not a valid subTest choice with current selection: test={}"
-                raise IOError(message.format(lineNum, subTest, test))
+            if(not re.match(subtestReg, subtest)):
+                message = "Line {}: {} is not a valid subtest choice with current selection: test={}"
+                raise IOError(message.format(lineNum, subtest, test))
 
             type = options[3]
-            typeReg = regexHelp.typeRegex(test, subTest)
+            typeReg = helper.regFromList(appRequest.validType(test, subtest))
 
             if(not re.match(typeReg, type)):
-                message = "Line {}: {} is not a valid type option with current selection: test={}, subTest={}"
-                raise IOError(message.format(lineNum,type, test, subTest))
+                message = "Line {}: {} is not a valid type option with current selection: test={}, subtest={}"
+                raise IOError(message.format(lineNum,type, test, subtest))
 
             labels = set(options[4].split(','))
 
-            labelReg = regexHelp.labelsRegex(test,subTest,type)
+            labelReg = help.regFromList(appRequest.validLabels(test,subtest,type))
 
             for label in labels:
                 if(not re.match(labelReg,label)):
-                    message = "Line {}: {} is not a valid label option with current selection: test={}, subTest={}, type={}"
-                    raise IOError(message.format(lineNum,label,test,subTest,type))
+                    message = "Line {}: {} is not a valid label option with current selection: test={}, subtest={}, type={}"
+                    raise IOError(message.format(lineNum,label,test,subtest,type))
 
             start = options[5]
 
@@ -88,7 +89,7 @@ class MultiGraph():
                 message = "Line {}: {} is not a valid format for end date"
                 raise IOError(message.format(lineNum,end))
 
-            graphs.append(graph.Graph(cards, test, subTest, type, labels, start, end))
+            graphs.append(graph.Graph(cards, test, subtest, type, labels, start, end))
         self.graphs = graphs
         self.pdfName = pdfName
 

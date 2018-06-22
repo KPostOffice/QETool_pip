@@ -11,7 +11,9 @@ def stringDateToEpoch(string):
     dateArr = [int(x) for x in dateArr]
     return (datetime.datetime(dateArr[0], dateArr[1], dateArr[2])).timestamp()
 
-def getData(card, test, subTest, type, epochStart, epochEnd):
+
+# TODO: TRANSFER THIS SERVER SIDE AS A GET REQUEST SO THAT USER DOES NOT DIRECTLY ACCESS DATABASE
+def getData(card, test, subtest, type, epochStart, epochEnd):
     query = {
         "datetime": {
             "$lte": epochEnd,
@@ -20,7 +22,7 @@ def getData(card, test, subTest, type, epochStart, epochEnd):
         "type": type,
         "test": test,
         "cardName": card,
-        "subTest": subTest
+        "subtest": subtest
     }
     data = (config.collection.find(
         query,
@@ -29,7 +31,7 @@ def getData(card, test, subTest, type, epochStart, epochEnd):
             "data": True,
             "datetime": True,
             "test": True,
-            "subTest": True
+            "subtest": True
         })).sort('datetime',1)
     return data
 
@@ -42,8 +44,12 @@ def plotData(card, label, data, ax):
             y.append(dt.epoch2num(datum['data'][label]))
     ax.plot_date(x,y,'-o', label = card + ' ' + label)
 
+def regFromList(list):
+    return r'^(' + r'|'.join(list) + r')$'
 
-def plotMany(cards, test, subTest, type, labels, start, end, fileName="test.pdf"):
+
+# # NOTE: IS THIS USED ANYWHERE OR IS EVERYTHING CONTAINED IN "graph.py"?
+def plotMany(cards, test, subtest, type, labels, start, end, fileName="test.pdf"):
     fig = plt.figure(figsize=(18,9))
     ax = fig.add_subplot(111, position=[0.1, 0.1, 0.8, 0.8])
     startEpoch = stringDateToEpoch(start)
@@ -51,12 +57,12 @@ def plotMany(cards, test, subTest, type, labels, start, end, fileName="test.pdf"
     ax.set_facecolor("#330000")
     for card in cards:
         for label in labels:
-            plotData(card, label,getData(card,test,subTest,type, startEpoch, endEpoch),ax)
+            plotData(card, label,getData(card,test,subtest,type, startEpoch, endEpoch),ax)  # TODO: AGAIN REPLACE WITH GET REQUEST
     (ymin, ymax) = plt.ylim()
     bottom = ymin-ymax+ymin
     top = ymax+ymax-ymin
     ax.grid(color="#6A0000", lw = 2.5)
-    ax.set_title(test + ": " + subTest + " " + type)
+    ax.set_title(test + ": " + subtest + " " + type)
     ax.set_yticks(np.arange(bottom, top, 10**int(np.log10(ymax-ymin))))
     ax.ticklabel_format(axis = 'y', style='plain', useOffset=False)
     ax.legend(bbox_to_anchor=(1.05, 1), loc='best', borderaxespad=0.)
