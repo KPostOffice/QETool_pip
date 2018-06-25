@@ -40,9 +40,7 @@ def getData(card, test, subtest, type, epochStart, epochEnd):
 def plotData(card, label, data, ax):
     x=[]
     y=[]
-    print(data)
     for datum in data:
-        print(datum)
         if datum['data'] != None and label in datum['data']:
             x.append((dt.seconds(datum['datetime'])+365.25*1969))
             y.append(dt.epoch2num(datum['data'][label]))

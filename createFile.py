@@ -12,7 +12,7 @@ class MyCompleter(object):  # Custom completer
         if state == 0:  # on first trigger, build possible matches
             if text:  # cache matches (entries that start with entered text)
                 self.matches = [s for s in self.options
-                                    if s and s.lower().startswith(text.lower())]
+                                    if s and s.startswith(text)]
             else:  # no text entered, all matches possible
                 self.matches = self.options[:]
 
@@ -104,9 +104,12 @@ def writeLine():
     return ":".join(array)+"\n"
 
 def createFile(file):
-    pdfName = input("Enter the name of the PDF which you want to create: ")
 
-    if(not re.match(r'^.*\.pdf$', pdfName)):
+    pdfName = input("Enter the name of the PDF which you want to create: ")
+    if(pdfName == ""):
+        raise IOError("No name provided")
+
+    if(not re.match(r'^.+\.pdf$', pdfName)):
         pdfName += ".pdf"
 
     file.write(pdfName + "\n")
@@ -115,7 +118,7 @@ def createFile(file):
 
     while(True):
         userIn = input("Would you like to make another page (y/n)?")
-        if(userIn.lower() == "n"):
+        if(userIn.lower() == "n" or userIn.lower() == "no"):
             break
         elif(userIn.lower() != "y" and userIn.lower() != "yes"):
             print("Input not recognized")
