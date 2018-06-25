@@ -26,7 +26,6 @@ class QEdataRequest():
     def getData(self, **kwargs):
         payload = kwargs
         data=requests.get(apiLocation+"/data",params=payload).json()
-        print(data)
         return data
 
     def getStructure(self):

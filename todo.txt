@@ -1,2 +1,0 @@
-TODO: Get rid of reliance on charts.json or cause it to be updated each time a request is made.
-      Having only consistent instance of charts.json is necessary 
