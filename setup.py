@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="qe_cmd_line_tool",
-    version="0.0.1",
+    version="0.0.2",
     author="Kevin Postlethwait",
     author_email="kpostlet@redhat.com",
     description="Create PDF Graphs from Google Sheets Data",
@@ -18,4 +18,9 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ),
+    entry_points = {
+        'console_scripts': [
+            'qe_fileMaker=pythonFiles.createFile'
+        ]
+    },
 )
