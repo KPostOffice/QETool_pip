@@ -2,3 +2,5 @@
 *.pdf
 out.txt
 env/*
+graphMaker/qe_cmd_line_tool.egg-info/*
+graphMaker/qeGraphMaker.egg-info/*
