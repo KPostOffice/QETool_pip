@@ -1,0 +1,7 @@
+README.md
+setup.py
+qe_cmd_line_tool.egg-info/PKG-INFO
+qe_cmd_line_tool.egg-info/SOURCES.txt
+qe_cmd_line_tool.egg-info/dependency_links.txt
+qe_cmd_line_tool.egg-info/entry_points.txt
+qe_cmd_line_tool.egg-info/top_level.txt

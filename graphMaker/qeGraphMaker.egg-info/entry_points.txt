@@ -1,0 +1,3 @@
+[console_scripts]
+fileMaker = graphMaker.pythonFiles.createFile:main
+

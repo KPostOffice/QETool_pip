@@ -1,0 +1,3 @@
+[console_scripts]
+fileMaker = qe_cmd_line_tool.pythonFiles.createFile:main
+
