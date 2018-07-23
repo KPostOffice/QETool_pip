@@ -1,5 +1,5 @@
 import readline
-import apiRequest
+import pythonFiles.apiRequest as apiRequest
 import re
 import argparse
 
@@ -132,5 +132,5 @@ def main():
     
     createFile(fo)
 
-if __name__ =  '__main__':
+if __name__ ==  '__main__':
     main()

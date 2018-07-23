@@ -1,5 +1,4 @@
-import config
-import helper
+import pythonFiles.helper as helper
 
 def main():
     data = helper.getData()

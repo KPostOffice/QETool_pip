@@ -1,4 +1,4 @@
-import graphFileParser
+import pythonFiles.graphFileParser
 import argparse
 
 parser = argparse.ArgumentParser()

@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import matplotlib.dates as dt
-import config
 import datetime
 import numpy as np
 from apiRequest import QEdataRequest
@@ -12,30 +11,6 @@ def stringDateToEpoch(string):
     dateArr = string.split('-')
     dateArr = [int(x) for x in dateArr]
     return (datetime.datetime(dateArr[0], dateArr[1], dateArr[2])).timestamp()
-
-
-# TODO: TRANSFER THIS SERVER SIDE AS A GET REQUEST SO THAT USER DOES NOT DIRECTLY ACCESS DATABASE
-def getData(card, test, subtest, type, epochStart, epochEnd):
-    query = {
-        "datetime": {
-            "$lte": epochEnd,
-            "$gte": epochStart
-        },
-        "type": type,
-        "test": test,
-        "cardName": card,
-        "subtest": subtest
-    }
-    data = (config.collection.find(
-        query,
-        projection={
-            "sheetId": True,
-            "data": True,
-            "datetime": True,
-            "test": True,
-            "subtest": True
-        })).sort('datetime',1)
-    return data
 
 def plotData(card, label, data, ax):
     x=[]

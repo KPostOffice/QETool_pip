@@ -1,7 +1,7 @@
-import helper
+import pythonFiles.helper as helper
 import matplotlib.pyplot as plt
 import numpy as np
-from apiRequest import QEdataRequest
+from pythonFiles.apiRequest import QEdataRequest
 
 class Graph():
     """docstring for [object Object]."""

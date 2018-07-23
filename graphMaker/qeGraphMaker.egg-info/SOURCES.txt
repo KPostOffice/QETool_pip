@@ -1,5 +1,13 @@
 README.md
 setup.py
+pythonFiles/__init__.py
+pythonFiles/apiRequest.py
+pythonFiles/createFile.py
+pythonFiles/getGraph.py
+pythonFiles/graph.py
+pythonFiles/graphFileParser.py
+pythonFiles/helper.py
+pythonFiles/xeqt.py
 qeGraphMaker.egg-info/PKG-INFO
 qeGraphMaker.egg-info/SOURCES.txt
 qeGraphMaker.egg-info/dependency_links.txt
