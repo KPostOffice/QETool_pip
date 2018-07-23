@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as dt
 import datetime
 import numpy as np
-from apiRequest import QEdataRequest
+from pythonFiles.apiRequest import QEdataRequest
 
 req = QEdataRequest()
 
