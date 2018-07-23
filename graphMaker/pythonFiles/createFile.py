@@ -28,8 +28,6 @@ def main():
     parser.add_argument('-o', '--output', required=False,
             help='Output txt file, out.txt by default', default="out.txt")
     
-    fo = open(parser.parse_args().output, "w")
-    
     req = apiRequest.QEdataRequest()
     
     print("This tool is for creating txt files which are of proper form so that they" \
@@ -105,7 +103,7 @@ def main():
         array = [",".join(cards),test,subtest,type,",".join(labels),start,end]
         return ":".join(array)+"\n"
     
-    def createFile(file):
+    def createFile():
     
         pdfName = input("Enter the name of the PDF which you want to create: ")
         if(pdfName == ""):
@@ -114,9 +112,9 @@ def main():
         if(not re.match(r'^.+\.pdf$', pdfName)):
             pdfName += ".pdf"
     
-        file.write(pdfName + "\n")
+        toWrite = pdfName + "\n"
     
-        file.write(writeLine())
+        toWrite = toWrite + writeLine()
     
         while(True):
             userIn = input("Would you like to make another page (y/n)?")
@@ -126,11 +124,13 @@ def main():
                 print("Input not recognized")
                 continue
     
-            file.write(writeLine())
+            toWrite = toWrite + writeLine()
     
-        file.close()
+        fo = open(parser.parse_args().output, "w")
+        fo.write(toWrite)
+        fo.close()
     
-    createFile(fo)
+    createFile()
 
 if __name__ ==  '__main__':
     main()

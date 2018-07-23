@@ -1,3 +1,11 @@
+import matplotlib
+import os
+
+
+if not "DISPLAY" in os.environ:
+    matplotlib.use('Agg')
+
+
 import pythonFiles.helper as helper
 import matplotlib.pyplot as plt
 import numpy as np

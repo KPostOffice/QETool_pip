@@ -1,3 +1,9 @@
+import os
+import matplotlib
+
+if not "DISPLAY" in os.environ: 
+    matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 import matplotlib.dates as dt
 import datetime

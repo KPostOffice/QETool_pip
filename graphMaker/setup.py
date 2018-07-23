@@ -24,7 +24,8 @@ setuptools.setup(
     ],
     entry_points = {
         'console_scripts': [
-            'fileMaker=pythonFiles.createFile:main'
+            'fileMaker=pythonFiles.createFile:main',
+            'graphGen=pythonFiles.xeqt:main'
         ]
     },
 )

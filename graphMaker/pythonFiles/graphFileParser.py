@@ -1,8 +1,15 @@
+import os
+import matplotlib
+
+if not "DISPLAY" in os.environ:
+    matplotlib.use('Agg')
+
 import pythonFiles.graph as graph
 from matplotlib.backends.backend_pdf import PdfPages
 import re
 from pythonFiles.apiRequest import QEdataRequest
 import pythonFiles.helper as helper
+
 
 validPdfName = r'^\w+\.pdf$'
 validDate = r'^(19\d{2}|20\d{2})\-(0[1-9]|1[0-2])\-([0-2]\d|3[0-1])$'
