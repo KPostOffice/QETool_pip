@@ -45,7 +45,7 @@ class MultiGraph():
             elif(len(options)>8):
                 message = "Line {}: Too many arguments provided, needed 7 or 8 seperated by ':' but got {}"
                 raise IOError(message.format(lineNum, len(options)))
-
+c
             cards = set(options[0].split(','))
             cardReg = helper.regFromList(self.appReq.validCards())
 

@@ -42,13 +42,15 @@ def main():
     
         cards = []
         while(True):
-            userIn = input("Enter desired card ('next' to continue): ")
+            userIn = input("Enter desired card ('next' to continue): ").strip()
             if(userIn == "next"):
                 if(not cards):
-                    raise IOError("No input for card")
+                    print("No input for card")
+                    continue
                 break
             if(not userIn in validCards):
-                raise IOError("Invalid card name")
+                print("Invalid card name")
+                continue
             cards.append(userIn)
         ###########################################################################
     
@@ -56,27 +58,31 @@ def main():
         completer = MyCompleter(validTests)
         readline.set_completer(completer.complete)
     
-        test = input("Enter test name: ")
-        if(not test in validTests):
-            raise IOError("Invalid test name")
+        test = input("Enter test name: ").strip()
+        while(not test in validTests):
+            print("Invalid test name")
+            test = input("Enter test name: ").strip()
         ###########################################################################
     
         validSubtests = req.validSubtests(test)
         completer = MyCompleter(validSubtests)
         readline.set_completer(completer.complete)
     
-        subtest = input("Enter subtest name: ")
-        if(not subtest in validSubtests):
-            raise IOError("Invalid subtest name")
+        subtest = input("Enter subtest name: ").strip()
+        while(not subtest in validSubtests):
+            print("Invalid subtest name")
+            subtest = input("Enter subtest name: ").strip()
+
         ###########################################################################
     
         validTypes = req.validTypes(test, subtest)
         completer = MyCompleter(validTypes)
         readline.set_completer(completer.complete)
     
-        type = input("Enter type: ")
-        if(not type in validTypes):
-            raise IOError("Invalid type")
+        type = input("Enter type: ").strip()
+        while(not type in validTypes):
+            print("Invalid type")
+            type = input("Enter type: ").strip()
         ###########################################################################
     
         validLabels = req.validLabels(test, subtest, type)
@@ -85,13 +91,15 @@ def main():
     
         labels = []
         while(True):
-            userIn = input("Enter desired label ('next' to continue): ")
+            userIn = input("Enter desired label ('next' to continue): ").strip()
             if(userIn == "next"):
                 if(not labels):
-                    raise IOError("No input for label")
+                    print("No input for label")
+                    continue
                 break
             if(not userIn in validLabels):
-                raise IOError("Invalid label")
+                print("Invalid label")
+                continue
             labels.append(userIn)
         ###########################################################################
     
@@ -105,7 +113,7 @@ def main():
     
     def createFile():
     
-        pdfName = input("Enter the name of the PDF which you want to create: ")
+        pdfName = input("Enter the name of the PDF which you want to create: ").strip()
         if(pdfName == ""):
             raise IOError("No name provided")
     
@@ -117,7 +125,7 @@ def main():
         toWrite = toWrite + writeLine()
     
         while(True):
-            userIn = input("Would you like to make another page (y/n)?")
+            userIn = input("Would you like to make another page (y/n)?").strip()
             if(userIn.lower() == "n" or userIn.lower() == "no"):
                 break
             elif(userIn.lower() != "y" and userIn.lower() != "yes"):
