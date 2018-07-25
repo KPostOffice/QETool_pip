@@ -21,10 +21,11 @@ def stringDateToEpoch(string):
 def plotData(card, label, data, ax):
     x=[]
     y=[]
+    print(data)
     for datum in data:
         if datum['data'] != None and label in datum['data']:
             x.append((dt.seconds(datum['datetime'])+365.25*1969))
-            y.append(dt.epoch2num(datum['data'][label]))
+            y.append(datum['data'][label])
     ax.plot_date(x,y,'-o', label = card + ' ' + label)
 
 def regFromList(list):

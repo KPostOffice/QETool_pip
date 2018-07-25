@@ -36,13 +36,12 @@ class Graph():
                             test=self.test, subtest=self.subtest, type=self.type,
                             epochStart=startEpoch, epochEnd=endEpoch),ax)  #TODO: Replace helper.getData with a get request
         (ymin, ymax) = plt.ylim()
-        bottom = ymin-ymax+ymin
-        top = ymax+ymax-ymin
+        bottom = -ymax*(0.05)
+        top = ymax+(ymax-ymin)*0.1
         ax.grid(color="#6A0000", lw = 2.5)
         ax.set_title(self.test + ": " + self.subtest + " " + self.type)
-        ax.set_yticks(np.arange(bottom, top, 10**int(np.log10(ymax-ymin))))
         ax.ticklabel_format(axis = 'y', useOffset=False)
-        ax.legend(bbox_to_anchor=(1.1, 1), loc='best', borderaxespad=0.)
+        ax.legend(bbox_to_anchor=(1.11, 1), loc='best', borderaxespad=0.)
         ax.set_ylim(bottom=bottom, top=top)
         if(multiPdf != None):
             multiPdf.savefig()

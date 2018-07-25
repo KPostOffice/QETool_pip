@@ -45,7 +45,7 @@ class MultiGraph():
             elif(len(options)>8):
                 message = "Line {}: Too many arguments provided, needed 7 or 8 seperated by ':' but got {}"
                 raise IOError(message.format(lineNum, len(options)))
-c
+
             cards = set(options[0].split(','))
             cardReg = helper.regFromList(self.appReq.validCards())
 
@@ -85,13 +85,13 @@ c
 
             start = options[5]
 
-            if(not re.match(validDate, start)):
+            if(not re.match(validDate, start) and start != "earliest"):
                 message = "Line {}: {} is not a valid format for start date"
                 raise IOError(message.format(lineNum,start))
 
             end = options[6]
 
-            if(not re.match(validDate, end)):
+            if(not re.match(validDate, end) and end != "today"):
                 message = "Line {}: {} is not a valid format for end date"
                 raise IOError(message.format(lineNum,end))
 
