@@ -9,10 +9,12 @@ from matplotlib.backends.backend_pdf import PdfPages
 import re
 from pythonFiles.apiRequest import QEdataRequest
 import pythonFiles.helper as helper
+from datetime import datetime,date
 
 
 validPdfName = r'^\w+\.pdf$'
 validDate = r'^(19\d{2}|20\d{2})\-(0[1-9]|1[0-2])\-([0-2]\d|3[0-1])$'
+    
 
 class MultiGraph():
     def __init__(self, fileName):
@@ -20,6 +22,13 @@ class MultiGraph():
         self.pdfName = ""
         self.graphs = []
         self.appReq = QEdataRequest()
+        self.flags = {"update":self.update}
+    
+    def update(self, start, end, **kwargs):
+        startMonth = start[0:7]
+        endMonth = end[0:7]
+        self.appReq.update(startMonth, endMonth)
+
 
     def construct(self):
         lineNum = 1
@@ -39,7 +48,7 @@ class MultiGraph():
             line = line.rstrip()
             options = line.split(':')
 
-            if(len(options)<7):
+            if(len(options)<7 or len(options)>8):
                 message = "Line {}: Not enough arguments provided, needed 7 or 8 seperated by ':' but got {}"
                 raise IOError(message.format(lineNum, len(options)))
             elif(len(options)>8):
@@ -85,16 +94,36 @@ class MultiGraph():
 
             start = options[5]
 
+            if(start == "earliest"):
+                minDate = int((datetime.now() - datetime.fromtimestamp(0)).total_seconds())
+                for card in cards:
+                    dates = map(lambda x: x['datetime'], self.appReq.getData(cardName=card,test=test,subtest=subtest,type=type))
+                    curMin = min(dates)
+                    minDate = min(curMin, minDate)
+                start = date.fromtimestamp(minDate).isoformat()
+
+
             if(not re.match(validDate, start) and start != "earliest"):
                 message = "Line {}: {} is not a valid format for start date"
                 raise IOError(message.format(lineNum,start))
 
             end = options[6]
 
+            if(end == "today"):
+                end = date.today().isoformat()
+                
             if(not re.match(validDate, end) and end != "today"):
                 message = "Line {}: {} is not a valid format for end date"
                 raise IOError(message.format(lineNum,end))
+            
+            if(end == "today"):
+                datetime.now().date().isoformat()
 
+            if(len(options) == 8):
+                line_flags = set(options[7].split(','))
+                for flag in line_flags:
+                    self.flags[flag](cards=cards, test=test, subtest=subtest, type=type, labels=labels, start=start, end=end)
+                
             graphs.append(graph.Graph(cards, test, subtest, type, labels, start, end))
         self.graphs = graphs
         self.pdfName = pdfName

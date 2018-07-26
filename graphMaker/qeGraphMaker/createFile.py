@@ -3,6 +3,7 @@ import pythonFiles.apiRequest as apiRequest
 import re
 import argparse
 
+
 class MyCompleter(object):  # Custom completer
 
     def __init__(self, options):
@@ -23,7 +24,9 @@ class MyCompleter(object):  # Custom completer
             return None
 
 
-def main(): 
+def main():
+
+    flags = ["update"]
     parser = argparse.ArgumentParser()
     parser.add_argument('-o', '--output', required=False,
             help='Output txt file, out.txt by default', default="out.txt")
@@ -108,8 +111,22 @@ def main():
         start = input("Enter start date of the form YYYY-MM-DD: ")
         end = input("Enter end date of the form YYYY-MM-DD: ")
     
-        array = [",".join(cards),test,subtest,type,",".join(labels),start,end]
+        completer = MyCompleter(flags+["next"])
+        readline.set_completer(completer.complete)
+        my_flags=[]
+        while(True):
+            userIn = input("Enter flag ('next' to continue)").strip()
+            if(userIn == 'next'):
+                break
+            if(not userIn in flags):
+                print("Invalid flag")
+            
+            my_flags.append(userIn)
+
+        array = [",".join(cards), test, subtest, type, ",".join(labels),start,end, ",".join(my_flags)]
+
         return ":".join(array)+"\n"
+
     
     def createFile():
     
