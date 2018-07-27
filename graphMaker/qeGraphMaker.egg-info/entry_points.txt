@@ -1,4 +1,4 @@
 [console_scripts]
-fileMaker = pythonFiles.createFile:main
-graphGen = pythonFiles.xeqt:main
+fileMaker = qeGraphMaker.createFile:main
+graphGen = qeGraphMaker.xeqt:main
 

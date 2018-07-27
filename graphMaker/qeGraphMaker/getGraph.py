@@ -1,4 +1,4 @@
-import pythonFiles.helper as helper
+import qeGraphMaker.helper as helper
 
 def main():
     data = helper.getData()

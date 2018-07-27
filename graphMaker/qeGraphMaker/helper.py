@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as dt
 import datetime
 import numpy as np
-from pythonFiles.apiRequest import QEdataRequest
+from qeGraphMaker.apiRequest import QEdataRequest
 
 req = QEdataRequest()
 
@@ -21,7 +21,6 @@ def stringDateToEpoch(string):
 def plotData(card, label, data, ax):
     x=[]
     y=[]
-    print(data)
     for datum in data:
         if datum['data'] != None and label in datum['data']:
             x.append((dt.seconds(datum['datetime'])+365.25*1969))

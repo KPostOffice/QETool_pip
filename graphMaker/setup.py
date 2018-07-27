@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="qeGraphMaker",
-    version="1.0.0",
+    version="1.0.3",
     author="Kevin Postlethwait",
     author_email="kpostlet@redhat.com",
     description="Create PDF Graphs from Google Sheets Data",
@@ -24,8 +24,8 @@ setuptools.setup(
     ],
     entry_points = {
         'console_scripts': [
-            'fileMaker=pythonFiles.createFile:main',
-            'graphGen=pythonFiles.xeqt:main'
+            'fileMaker=qeGraphMaker.createFile:main',
+            'graphGen=qeGraphMaker.xeqt:main'
         ]
     },
 )

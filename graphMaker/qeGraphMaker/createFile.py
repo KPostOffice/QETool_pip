@@ -1,5 +1,5 @@
 import readline
-import pythonFiles.apiRequest as apiRequest
+import qeGraphMaker.apiRequest as apiRequest
 import re
 import argparse
 
@@ -7,7 +7,7 @@ import argparse
 class MyCompleter(object):  # Custom completer
 
     def __init__(self, options):
-        self.options = sorted(options)
+        self.options = options
 
     def complete(self, text, state):
         if state == 0:  # on first trigger, build possible matches
@@ -39,10 +39,10 @@ def main():
     def writeLine():
         ###########################################################################
         validCards = req.validCards()
-        completer = MyCompleter(validCards + ["next"])
+        completer = MyCompleter(["next"] + validCards)
         readline.set_completer(completer.complete)
         readline.parse_and_bind('tab: complete')
-    
+        readline.set_completer_delims("\n\r")
         cards = []
         while(True):
             userIn = input("Enter desired card ('next' to continue): ").strip()
@@ -89,7 +89,7 @@ def main():
         ###########################################################################
     
         validLabels = req.validLabels(test, subtest, type)
-        completer = MyCompleter(validLabels)
+        completer = MyCompleter(["next"] + validLabels)
         readline.set_completer(completer.complete)
     
         labels = []
@@ -111,11 +111,11 @@ def main():
         start = input("Enter start date of the form YYYY-MM-DD: ")
         end = input("Enter end date of the form YYYY-MM-DD: ")
     
-        completer = MyCompleter(flags+["next"])
+        completer = MyCompleter(["next"] + flags)
         readline.set_completer(completer.complete)
         my_flags=[]
         while(True):
-            userIn = input("Enter flag ('next' to continue)").strip()
+            userIn = input("Enter flag ('next' to continue): ").strip()
             if(userIn == 'next'):
                 break
             if(not userIn in flags):
@@ -142,7 +142,7 @@ def main():
         toWrite = toWrite + writeLine()
     
         while(True):
-            userIn = input("Would you like to make another page (y/n)?").strip()
+            userIn = input("Would you like to make another page (y/n)? ").strip()
             if(userIn.lower() == "n" or userIn.lower() == "no"):
                 break
             elif(userIn.lower() != "y" and userIn.lower() != "yes"):

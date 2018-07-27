@@ -4,11 +4,11 @@ import matplotlib
 if not "DISPLAY" in os.environ:
     matplotlib.use('Agg')
 
-import pythonFiles.graph as graph
+import qeGraphMaker.graph as graph
 from matplotlib.backends.backend_pdf import PdfPages
 import re
-from pythonFiles.apiRequest import QEdataRequest
-import pythonFiles.helper as helper
+from qeGraphMaker.apiRequest import QEdataRequest
+import qeGraphMaker.helper as helper
 from datetime import datetime,date
 
 
@@ -122,7 +122,8 @@ class MultiGraph():
             if(len(options) == 8):
                 line_flags = set(options[7].split(','))
                 for flag in line_flags:
-                    self.flags[flag](cards=cards, test=test, subtest=subtest, type=type, labels=labels, start=start, end=end)
+                    if( not flag == ''):
+                        self.flags[flag](cards=cards, test=test, subtest=subtest, type=type, labels=labels, start=start, end=end)
                 
             graphs.append(graph.Graph(cards, test, subtest, type, labels, start, end))
         self.graphs = graphs

@@ -1,4 +1,4 @@
-import pythonFiles.graphFileParser as graphFileParser
+import qeGraphMaker.graphFileParser as graphFileParser
 import argparse
 
 
