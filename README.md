@@ -1,5 +1,9 @@
 # QETool_pip
 
+## Questions:
+
+  email: kpostlet@redhat.com
+
 ## TODO:
 
 - [ ] Update example text file
@@ -22,7 +26,7 @@ This tool requires Python version 3.X
 
 1. First install matplotlib on your system through pip:
     ```
-    sudo (pip|pip3) install matplotlib
+    $ sudo (pip|pip3) install matplotlib
     ```
 1. If you are using a virtualenv use the flag `--system-site-packages` so that system wide packages are available to the virtual environment.
 
@@ -32,13 +36,14 @@ This tool requires Python version 3.X
 
 1. Finally:
     ```
-    (pip|pip3) install qeGraphMaker
+    $ (pip|pip3) install qeGraphMaker
     ```
 
 ### Input text file
 The input text for the graph generator is a well structured file as defined in the [example file](/graphMaker/multiGraphFileExample).
 
 ### Input file generator
-For a user friendly process when creating the input file use the `fileMaker` command.  This will walk you through the process of creating a file that can the be passed into `graphGen`
+For a user friendly process when creating the input file use the `fileMaker` command.  This will walk you through the process of creating a file that can the be passed into `graphGen`. Use <TAB> to autocomplete options. When inputting cards and labels, at least one option is required; no input is required for flags.
 
 ### The graph generator
+Once you have a text file that is of the correct form.  You can run `graphGen -f <file-name>`.  This will give you a PDF booklet as defined by the first line of the input file
