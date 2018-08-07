@@ -24,15 +24,17 @@ This tool will create two new commands:
 
 This tool requires Python version 3.X
 
-1. First install matplotlib on your system through pip:
+1. First install tkinter on your system
     ```
-    $ sudo (pip|pip3) install matplotlib
+    $ sudo yum install install (python34-tkinter|python36-tkinter)
+    ```
+
+    or
+
+    ```
+    $ sudo apt-get install python3-tk
     ```
 1. If you are using a virtualenv use the flag `--system-site-packages` so that system wide packages are available to the virtual environment.
-
-1. If your system does not come preinstalled with Tkinter for python3 run one of the following commands based on your system.
-  * `sudo yum install python3-tk`
-  * `sudo apt-get install python3-tk`
 
 1. Finally:
     ```
