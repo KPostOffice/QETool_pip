@@ -8,7 +8,7 @@ enic,ixgbe:Endurance:Endurance Testing PVP Latency:latency avg:64 Bytes Latency,
 
 generalformat
 \w*.pdf *\n
-(enic|ixgbe|...)(,(enic|ixgbe|...))*:(Gating|Endurance|...):(validSubtest|validSubtest2):(validType|validType2):(validLabel1|validLable2)(,(validLabel1|validLable2))*:(validDate):validDate
+(enic|ixgbe|...)(,(enic|ixgbe|...)),...:(Gating|Endurance|...):(validSubtest):(validType):(validLabel),(validLabel),...:(validDate):validDate:(validFlag),(validFlag),...
 
 parse on ':' and generate regex for next input based on valid that way user can easily be warned which part of request is invalid
 Warning can then be of form
@@ -19,4 +19,4 @@ Valid options include:
 "label 3"
 etc.
 
-NOTE: The validity of inputs will be pulled from the charts.json format file on server using GET request
+NOTE: The validity of inputs will be pulled from the the charts.json format file using 
