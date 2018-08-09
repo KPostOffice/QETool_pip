@@ -1,16 +1,11 @@
 import setuptools
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
-
 setuptools.setup(
     name="qeGraphMaker",
-    version="1.0.4",
+    version="1.0.5",
     author="Kevin Postlethwait",
     author_email="kpostlet@redhat.com",
     description="Create PDF Graphs from Google Sheets Data",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
     url="https://github.com/KPostOffice/QETool_pip",
     packages=setuptools.find_packages(),
     classifiers=(
