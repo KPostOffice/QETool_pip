@@ -19,13 +19,13 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ),
     install_requires=[
-      'requests',
-      'matplotlib',
+      "requests",
+      "matplotlib",
     ],
     entry_points = {
-        'console_scripts': [
-            'fileMaker=qeGraphMaker.createFile:main',
-            'graphGen=qeGraphMaker.xeqt:main'
+        "console_scripts": [
+            "fileMaker=qeGraphMaker.createFile:main",
+            "graphGen=qeGraphMaker.xeqt:main"
         ]
     },
 )
